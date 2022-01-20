@@ -1,0 +1,281 @@
+body {
+    margin: 1.5em; //use em
+    font-family: 'Poppins' ,sans-serif; //font of pg
+}
+
+a {
+    text-decoration: none; //remove links
+    font-size: 1.3rem; //use rem
+}
+
+.hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../images/shoe.jpg'); //out of folder ../
+    background-size: cover;
+    background-position-x: 20%; //left
+    background-position-y: 20%; //right
+    width: 100%; //specifcy h & w to view
+    height: 100vh; //height of wall if vieable in browser
+    z-index: -1; //fall on top or behind other elements
+    animation: introLoad 2s forwards; //loads img in screen
+    //overflow:hidden;
+}
+
+.logo { //SHOEBRAND LOGO
+    color: white;
+    font-weight: bold;
+}
+
+nav { //hide menu 
+    position: fixed;//doesn't leave when scroll
+    right: 0;
+    top: 0;
+    background: white;
+    height: 100vh;
+    width: 50%;
+    z-index: 999;
+    text-transform: uppercase;
+    transform: translateX(100%);
+    transition: transform .5s ease-in-out;
+
+    ul { //menu items
+        list-style-type: none;
+        padding: 0;
+        margin-top: 8em;
+
+        a {
+            color:black;
+            padding: .75em 2em;
+            display:block; //padding on link element
+
+            &:hover { //mouse hovers over
+                background: rgb(207, 204, 204);
+            }
+        }
+    }
+
+    .close { //menu exit button
+        float: right; //push to right side
+        margin: 2em;
+        width: 2.5em;
+    }
+}
+
+
+
+header {
+    display: flex; //next to each other
+    justify-content: space-between;
+
+    svg {
+        width: 2.3em;
+        margin-top: -.6em;
+        cursor: pointer;
+    }
+}
+
+
+h1 {
+    font-size: 3rem;
+    margin-top: 2em;
+    line-height: 3.3rem;
+}
+
+.subhead {
+    font-size: 1.4rem;
+}
+
+section.hero {
+    color: white;
+    height: 90vh;
+    animation: moveDown 1s ease-in-out forwards;
+    opacity: 0;
+
+    .down-arrow { //downarrow
+        stroke: white;
+        position: absolute;
+        bottom: 2em;
+        width: 1em;
+        animation: moveArrow 1s alternate-reverse infinite;
+
+        path {
+            fill: white;
+        }
+        
+    }
+}
+
+.more-info {
+    img {
+        width: 100%;
+        object-fit: cover; //keeps img 
+        height: 11em;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .desc {
+        line-height: 1.5re;
+    }
+}
+
+.open-nav { //open and close nav menu
+    transform: translateX(0);
+}
+
+//media query
+//smaller
+@media only screen and (min-width: 680px) {
+
+    body {
+        margin: 1.5em 5em; //more whitespace
+        font-family: 'Poppins' ,sans-serif; 
+    }
+}
+
+@media only screen and (min-width: 920px) {
+
+    .menu { //hide menu 
+        display: none;
+    }
+
+    nav {
+        transform: translateX(0);
+        position: unset; //overwrite
+        display: block;
+        width: auto;
+        height: auto;
+        background: none;
+
+        svg.close {
+            display: none;
+        }
+
+        ul {
+            display: flex; // bring to columns
+            margin: 0;
+
+            a {
+                color: white;
+                padding: .5em 1.5em;
+                font-size: .9rem;
+
+                &:hover {
+                    background: none;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .hero-img {
+        left: unset;
+        right: 0; //move to right
+        width: 50%;
+        height: 42em;
+    }
+
+    .logo {
+        color: black;
+
+        span {
+            color: red;
+        }
+    }
+
+    section.hero {
+        color: black;
+        height: auto;
+        width: 40%;
+        margin-bottom: 8em;
+
+        svg.down-arrow { //arrow
+            stroke: black;
+            position: unset;
+
+            path {
+                fill: black;
+            }
+        }
+    }
+
+    .feature {
+        display: grid;
+        //repeat colums with 2 values
+        grid-template-columns: repeat(2,auto); //need display grid
+        gap: 3em; //space btw colums
+        margin-bottom:8em; //push away from each other
+
+        img { //shoe img
+            width: 25em;
+        }
+
+        .content {
+            text-align: right;
+            width: 25em;
+        }
+    }
+
+    .feature.left { //flip
+        grid-template-areas: 
+            "left right";
+            
+            img {
+                grid-area: left;
+            }
+
+            .content {
+               text-align: left;
+               width:25em;
+               justify-self: left; 
+            }
+            
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .wrapper {
+        width: 1200px;
+        margin: 0 auto; //keeps centered
+    }
+
+    .feature {
+        gap: 0;//makes gap smaller
+    }
+}
+
+@keyframes introLoad { //define animation, clippy
+
+    from {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0) ; //hidden in shape
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) ; 
+    }
+}
+
+@keyframes moveArrow { //define animation, clippy
+
+    from {
+        transform: translateY(-25px);//bob up & down
+    }
+    to {
+        transform: translateY(0);  
+    }
+}
+
+@keyframes moveDown { //define animation, clippy
+
+    from {
+        transform: translateY(-100px);//text glides down
+    }
+    to {
+        transform: translateY(0);  
+        opacity: 1;
+    }
+}
